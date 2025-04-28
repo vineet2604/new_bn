@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "547155268093",
+    "project_id": "inkspireblogapp",
+    "storage_bucket": "inkspireblogapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547155268093:android:bd6153264ca1619aeb8994",
+        "android_client_info": {
+          "package_name": "com.example.eventra_crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547155268093-7mr48cu19f3t828i07ids9aoh4cvlr23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eventra_crm",
+            "certificate_hash": "c935cb04d87e38b0ff5aa3141e728310e803ac0b"
+          }
+        },
+        {
+          "client_id": "547155268093-smc1qqrmquvkbj5o7j9dkjmruo3qqr55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlb7AoD1H8FYxcwt9HSm8ZVnn6tGlyb9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547155268093-smc1qqrmquvkbj5o7j9dkjmruo3qqr55.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "547155268093-r9bro1gf4m89scnl6bmhuia8ocsld68d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eventraCrm"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547155268093:android:a0815e5b5ef34522eb8994",
+        "android_client_info": {
+          "package_name": "com.example.testprojectsix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547155268093-smc1qqrmquvkbj5o7j9dkjmruo3qqr55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlb7AoD1H8FYxcwt9HSm8ZVnn6tGlyb9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547155268093-smc1qqrmquvkbj5o7j9dkjmruo3qqr55.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "547155268093-r9bro1gf4m89scnl6bmhuia8ocsld68d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eventraCrm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

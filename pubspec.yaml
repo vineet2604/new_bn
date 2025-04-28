@@ -1,0 +1,60 @@
+name: testprojectsix
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Common packages
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+
+  # Routing
+  go_router: ^15.1.1
+
+  # Firebase
+  firebase_auth: ^5.5.2
+  cloud_firestore: ^5.6.6
+
+  # Calendar UI
+  table_calendar: ^3.2.0
+
+  # Splash Screen
+  flutter_native_splash: ^2.4.6
+  google_sign_in: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/bg.jpg
+    - assets/images/night-mode.png
+    - assets/images/sun.png
+    - assets/images/night-mode.png
+    - assets/images/crystal_room.jpg
+    - assets/images/garden_venue.jpg
+    - assets/images/grand_hall.jpg
+    - assets/images/open_ground.jpg
+    - assets/images/royal_banquet.jpg
+
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
