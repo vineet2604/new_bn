@@ -24,6 +24,7 @@ dependencies:
   # Firebase
   firebase_auth: ^5.5.2
   cloud_firestore: ^5.6.6
+  firebase_core: ^3.13.0
 
   # Calendar UI
   table_calendar: ^3.2.0
@@ -31,6 +32,7 @@ dependencies:
   # Splash Screen
   flutter_native_splash: ^2.4.6
   google_sign_in: ^6.3.0
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -44,13 +46,11 @@ flutter:
     - assets/images/bg.jpg
     - assets/images/night-mode.png
     - assets/images/sun.png
-    - assets/images/night-mode.png
     - assets/images/crystal_room.jpg
     - assets/images/garden_venue.jpg
     - assets/images/grand_hall.jpg
     - assets/images/open_ground.jpg
     - assets/images/royal_banquet.jpg
-
 
   fonts:
     - family: Poppins
@@ -58,3 +58,9 @@ flutter:
         - asset: assets/fonts/Poppins-Regular.ttf
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"  # Add the path to your logo image here
+

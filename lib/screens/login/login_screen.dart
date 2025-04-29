@@ -1,215 +1,151 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import '../../providers/auth_provider.dart';
-// import '../../widgets/primary_button.dart';
-// import 'package:go_router/go_router.dart';
-
-// class LoginScreen extends ConsumerStatefulWidget {
-//   @override
-//   _LoginScreenState createState() => _LoginScreenState();
-// }
-
-// class _LoginScreenState extends ConsumerState<LoginScreen> {
-//   final _emailController = TextEditingController();
-//   final _passwordController = TextEditingController();
-//   bool _obscurePassword = true;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Stack(
-//         fit: StackFit.expand,
-//         children: [
-//           Image.asset('assets/images/bg.jpg', fit: BoxFit.cover),
-//           Container(
-//             color: Colors.black54,
-//             child: Padding(
-//               padding: const EdgeInsets.all(24.0),
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   TextField(
-//                     controller: _emailController,
-//                     style: TextStyle(color: Colors.white),
-//                     decoration: InputDecoration(
-//                       hintText: 'User Id',
-//                       hintStyle: TextStyle(color: Colors.white70),
-//                       enabledBorder: UnderlineInputBorder(
-//                         borderSide: BorderSide(color: Colors.white),
-//                       ),
-//                     ),
-//                   ),
-//                   TextField(
-//                     controller: _passwordController,
-//                     obscureText: _obscurePassword,
-//                     style: TextStyle(color: Colors.white),
-//                     decoration: InputDecoration(
-//                       hintText: 'Password',
-//                       hintStyle: TextStyle(color: Colors.white70),
-//                       suffixIcon: IconButton(
-//                         icon: Icon(
-//                           _obscurePassword
-//                               ? Icons.visibility
-//                               : Icons.visibility_off,
-//                           color: Colors.white70,
-//                         ),
-//                         onPressed: () {
-//                           setState(() {
-//                             _obscurePassword = !_obscurePassword;
-//                           });
-//                         },
-//                       ),
-//                       enabledBorder: UnderlineInputBorder(
-//                         borderSide: BorderSide(color: Colors.white),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(height: 24),
-//                   PrimaryButton(
-//                     label: 'Sign In',
-//                     onPressed: () async {
-//                       await ref
-//                           .read(authProvider.notifier)
-//                           .signIn(
-//                             _emailController.text.trim(),
-//                             _passwordController.text.trim(),
-//                           );
-//                       context.go('/home');
-//                     },
-//                   ),
-//                   SizedBox(height: 12),
-//                   PrimaryButton(
-//                     label: 'Sign in with Google',
-//                     onPressed: () {
-//                       // Handle Google Sign-in
-//                     },
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../providers/auth_provider.dart';
-import '../../widgets/primary_button.dart';
-import 'package:go_router/go_router.dart';
+import 'package:testprojectsix/screens/home/home_screen.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
+  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  String _errorMessage = '';
+
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+        _errorMessage = '';
+      });
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        // If login is successful, the app should navigate to the next screen
+        // (e.g., the BookingsScreen). You'll likely want to use a Navigator
+        // here. For example:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreenPage()),
+        );
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = _handleAuthError(e.code);
+        });
+      } catch (e) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'An unexpected error occurred.';
+        });
+        print('Login error: $e');
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
+  }
+
+  String _handleAuthError(String errorCode) {
+    switch (errorCode) {
+      case 'user-not-found':
+        return 'No user found with this email.';
+      case 'wrong-password':
+        return 'Wrong password provided for this user.';
+      case 'invalid-email':
+        return 'The email address is not valid.';
+      case 'user-disabled':
+        return 'The user account has been disabled.';
+      default:
+        return 'An error occurred during login. Please try again.';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset('assets/images/bg.jpg', fit: BoxFit.cover),
-          Container(
-            color: Colors.black54,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextField(
-                    controller: _emailController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: 'User Id',
-                      hintStyle: TextStyle(color: Colors.white70),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
+      appBar: AppBar(title: const Text('Login')),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 24.0),
+                if (_errorMessage.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Text(
+                      _errorMessage,
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: _obscurePassword,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: TextStyle(color: Colors.white70),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.white70,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  PrimaryButton(
-                    label: 'Sign In',
-                    onPressed: () async {
-                      if (_emailController.text.trim().isEmpty ||
-                          _passwordController.text.trim().isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Please enter Email and Password'),
-                          ),
-                        );
-                        return; // Don't proceed if fields are empty
-                      }
-
-                      try {
-                        await ref
-                            .read(authProvider.notifier)
-                            .signIn(
-                              _emailController.text.trim(),
-                              _passwordController.text.trim(),
-                            );
-                        context.go('/home');
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Sign In Failed')),
-                        );
-                      }
-                    },
-                  ),
-                  SizedBox(height: 12),
-                  PrimaryButton(
-                    label: 'Sign in with Google',
-                    onPressed: () async {
-                      try {
-                        await ref
-                            .read(authProvider.notifier)
-                            .signInWithGoogle();
-                        context.go('/home');
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Google Sign-In Failed')),
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
+                ElevatedButton(
+                  onPressed: _isLoading ? null : _login,
+                  child:
+                      _isLoading
+                          ? const CircularProgressIndicator()
+                          : const Text('Login'),
+                ),
+                const SizedBox(height: 16.0),
+                TextButton(
+                  onPressed: () {
+                    // Navigate to the registration screen if you have one
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                    // );
+                    print('Navigate to registration');
+                  },
+                  child: const Text('Don\'t have an account? Register'),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

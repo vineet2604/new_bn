@@ -76,7 +76,7 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:testprojectsix/models/booking_model.dart';
+//import 'package:testprojectsix/models/booking_model.dart';
 import 'package:testprojectsix/screens/bookings/booking_screen.dart';
 import 'package:testprojectsix/screens/finder/finder_screen.dart';
 import 'package:testprojectsix/screens/home/calender_home_screen.dart';
@@ -188,21 +188,21 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
             });
           } else if (index == 0) {
             //Calendar Screen -> Navigate if you have created CalendarScreen
-            Example:
+            //Example:
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => CalendarScreen()),
             );
           } else if (index == 2) {
             // Auditorium Screen -> Navigate if you have created AuditoriumScreen
-            Example:
+            //Example:
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => BookingsScreen()),
             );
           } else if (index == 3) {
             // Finder Screen -> Navigate if you have created FinderScreen
-            Example:
+            // Example:
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => FinderScreen()),

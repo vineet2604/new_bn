@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "547155268093-7mr48cu19f3t828i07ids9aoh4cvlr23.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.eventra_crm",
-            "certificate_hash": "c935cb04d87e38b0ff5aa3141e728310e803ac0b"
-          }
-        },
-        {
           "client_id": "547155268093-smc1qqrmquvkbj5o7j9dkjmruo3qqr55.apps.googleusercontent.com",
           "client_type": 3
         }
