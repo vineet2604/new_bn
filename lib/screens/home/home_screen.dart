@@ -76,16 +76,10 @@
 // }
 
 import 'package:flutter/material.dart';
-//import 'package:testprojectsix/models/booking_model.dart';
 import 'package:testprojectsix/screens/bookings/booking_screen.dart';
 import 'package:testprojectsix/screens/finder/finder_screen.dart';
+import 'package:testprojectsix/widgets/app_bar.dart';
 import 'package:testprojectsix/screens/home/calender_home_screen.dart';
-
-// Import the screens you have actually created
-// Example:
-// import 'calendar_screen.dart';
-// import 'auditorium_screen.dart';
-// import 'finder_screen.dart';
 
 class HomeScreenPage extends StatefulWidget {
   const HomeScreenPage({Key? key}) : super(key: key);
@@ -95,7 +89,7 @@ class HomeScreenPage extends StatefulWidget {
 }
 
 class _HomeScreenPageState extends State<HomeScreenPage> {
-  int activeScreenIndex = 1; // Default Home
+  int activeScreenIndex = 1;
 
   final List<Map<String, String>> banquets = [
     {'name': 'Grand Royal Hall', 'image': 'assets/images/royal_banquet.jpg'},
@@ -111,17 +105,15 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Stack(
         children: [
-          // Background Image
           Image.asset(
             'assets/images/bg.jpg',
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
           ),
-
-          // Foreground Content (Banquet Grid)
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -175,34 +167,25 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
           ),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.pink,
         unselectedItemColor: Colors.amber,
         currentIndex: activeScreenIndex,
         onTap: (index) {
-          if (index == 1) {
-            // Home Screen -> already here
-            setState(() {
-              activeScreenIndex = 1;
-            });
-          } else if (index == 0) {
-            //Calendar Screen -> Navigate if you have created CalendarScreen
-            //Example:
+          setState(() {
+            activeScreenIndex = index;
+          });
+          if (index == 0) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => CalendarScreen()),
             );
           } else if (index == 2) {
-            // Auditorium Screen -> Navigate if you have created AuditoriumScreen
-            //Example:
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => BookingsScreen()),
             );
           } else if (index == 3) {
-            // Finder Screen -> Navigate if you have created FinderScreen
-            // Example:
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => FinderScreen()),

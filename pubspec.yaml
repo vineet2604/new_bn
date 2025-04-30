@@ -51,6 +51,9 @@ flutter:
     - assets/images/grand_hall.jpg
     - assets/images/open_ground.jpg
     - assets/images/royal_banquet.jpg
+    - assets/images/dp.jpg
+    - assets/images/logo.png
+    
 
   fonts:
     - family: Poppins
